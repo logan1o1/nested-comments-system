@@ -1,11 +1,9 @@
-/** @format */
-
 import React, { useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
 
 export default function SignIn() {
 	const [form, setForm] = useState({ username: "", password: "" })
-	const nav = useNavigate()
+	const nav = useNavigate();
 
 	const submit = async (e) => {
 		e.preventDefault()
@@ -17,8 +15,8 @@ export default function SignIn() {
 		})
 		if (res.ok) {
 			const user = await res.json()
-			localStorage.setItem("token", user.id) // simple flag
-			nav("/comments")
+			localStorage.setItem("token", user.id) 
+			nav("/comments");
 		} else {
 			alert("Login failed")
 		}

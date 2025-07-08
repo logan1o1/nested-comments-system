@@ -7,8 +7,8 @@ export default function Layout({ children }) {
 	const token = localStorage.getItem("token")
 
 	const logout = () => {
-		localStorage.removeItem("token")
-		navigate("/signin")
+		localStorage.removeItem("token");
+		navigate("/signin");
 	}
 
 	return (

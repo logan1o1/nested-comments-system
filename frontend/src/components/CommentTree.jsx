@@ -42,15 +42,10 @@ export default function CommentTree({
       <div className="comment-body">
         <div className="comment-header">
           <strong>
-            {node.username
-              ? node.username
-              : node.userid
-                ? `User${node.userid.slice(0,5)}`
-                : 'Anonymous'}
+            {node.user?.username ?? 'Anonymous'}
           </strong> • {node.createdAt ? timeAgo(node.createdAt) : 'just now'}
         </div>
 
-        {/* display text or edit textarea */}
         {editing ? (
           <div className="new-comment" style={{ marginBottom: '0.5rem' }}>
             <textarea
@@ -69,7 +64,6 @@ export default function CommentTree({
           <div className="comment-text">{node.text}</div>
         )}
 
-        {/* Action buttons */}
         {!editing && (
           <div style={{ marginTop: '0.5rem', display: 'flex', gap: '1rem' }}>
             <button
@@ -93,7 +87,6 @@ export default function CommentTree({
           </div>
         )}
 
-        {/* Reply form */}
         {replying && (
           <div className="new-comment" style={{ marginTop: '0.5rem' }}>
             <textarea
@@ -106,7 +99,6 @@ export default function CommentTree({
           </div>
         )}
 
-        {/* Nested replies */}
         {node.children?.length > 0 && (
           <div className="comment-children">
             {node.children.map(child => (

@@ -40,9 +40,9 @@ export class CommentsService {
   async update(id: UUID, updateCommentDto: UpdateCommentDto, userId: UUID) {
     const comment = await this.commentRepository.findOne({where: {id}});
 
-    if (!comment) throw new Error("Comment not found");
+    if (!comment) return {success: false, message: "Comment doesn't exist"};
 
-    if (comment.userid != userId) throw new Error("You are unauthorized to edit this comment");
+    if (comment.userid != userId) return {success: false, message: "Unauthorized asscess not permited"};
 
     const now = new Date();
     const createdAt = comment.createdAt;
@@ -52,16 +52,16 @@ export class CommentsService {
 
     if (updateCommentDto.text) comment.text = updateCommentDto.text;
 
-    const updated = await this.commentRepository.save(comment)
-    return { success: true, comment: updated }
+    const updated = await this.commentRepository.save(comment);
+    return { success: true, comment: updated };
   }
 
   async remove(id: UUID, userId: UUID) {
     const comment = await this.commentRepository.findOne({where: {id}});
 
-    if (!comment) throw new Error("Comment not found");
+    if (!comment) return {success: false, message: "Comment doesn't exist"};
 
-    if (comment.userid != userId) throw new Error("You are unauthorized to delete this comment");
+    if (comment.userid != userId) return {success: false, message: "Unauthorized asscess not permited"};
 
     const now = new Date();
     const createdAt = comment.createdAt;
@@ -72,8 +72,8 @@ export class CommentsService {
     comment.text = "";
     comment.userid = null;
 
-    const removed = await this.commentRepository.save(comment)
-    return {success: true, comment: removed}
+    const removed = await this.commentRepository.save(comment);
+    return {success: true, comment: removed};
   }
 
   findOne(id: number) {

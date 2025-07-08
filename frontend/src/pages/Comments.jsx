@@ -38,7 +38,7 @@ export default function Comments() {
 
   const deleteComment = async (id) => {
     if (!window.confirm("Delete this comment?")) return
-    await fetch(`http://localhost:3500/comments/${id}`, {
+    await fetch(`http://localhost:3500/comments/delete/${id}`, {
       method: "DELETE",
       credentials: "include",
     })

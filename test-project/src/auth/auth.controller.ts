@@ -52,6 +52,8 @@ export class AuthController {
       return res.status(HttpStatus.NOT_FOUND).send("User doesn't exist");
     }
 
+    res.clearCookie('AuthToken');
+
     const token = this.jwtService.sign(
       { sub: user.id },
       { secret: process.env.JWT_SECRET || 'secret moa', expiresIn: '5h' },
@@ -66,14 +68,17 @@ export class AuthController {
       .send(user);
   }
 
+  @Get('find/:id')
+  async findOneBy(@Param('id') id: UUID, @Res() res: Response) {
+    const user = await this.authService.findOneBy(id);
+    if (!user)
+      return res.status(HttpStatus.NOT_FOUND).send({ error: 'User not found' });
+    return res.status(HttpStatus.OK).send(user);
+  }
+
   @Get()
   findAll() {
     return this.authService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: UUID) {
-    return this.authService.findOne(id);
   }
 
   @Patch(':id')

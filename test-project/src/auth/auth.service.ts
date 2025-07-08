@@ -43,13 +43,13 @@ export class AuthService {
     return user;
   }
 
+  async findOneBy(id: UUID) {
+    return await this.authRepository.findOneBy( { id } );
+  }
   findAll() {
     return `This action returns all auth`;
   }
 
-  async findOne(id: UUID) {
-    return this.authRepository.findOne( { id }  as FindOneOptions);
-  }
 
   update(id: number, updateAuthDto: UpdateAuthDto) {
     return `This action updates a #${id} auth`;
