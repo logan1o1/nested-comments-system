@@ -16,7 +16,7 @@ export default function SignIn() {
 		if (res.ok) {
 			const user = await res.json()
 			localStorage.setItem("token", user.id) 
-			nav("/comments");
+			nav("/comment");
 		} else {
 			alert("Login failed")
 		}

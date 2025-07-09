@@ -11,28 +11,28 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'frontend', 'dist'),
+      exclude: [
+        '/auth/{*splat}', // matches /auth and any deeper path
+        '/comments/{*splat}',
+        '/notification/{*splat}',
+      ],
+    }),
     ConfigModule.forRoot(),
     TypeOrmModule.forRootAsync({
-      imports:[ConfigModule],
+      imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
-        type: "postgres",
-        url: configService.get<string>("DB_URL"),
+        type: 'postgres',
+        url: configService.get<string>('DB_URL'),
         entities: [join(process.cwd(), 'dist/**/*.entity.{ts,js}')],
-        synchronize: true
+        synchronize: true,
       }),
     }),
     AuthModule,
     CommentsModule,
     NotificationModule,
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', '..', 'frontend', 'dist'),
-      exclude: [
-        '/auth*',
-        '/comments*',
-        '/notification*',
-      ],
-    }),
   ],
   controllers: [AppController],
   providers: [AppService],

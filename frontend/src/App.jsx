@@ -16,10 +16,10 @@ function App() {
 			<BrowserRouter>
 				<Layout>
 					<Routes>
-						<Route
+						{/* <Route
 							path='/'
-							element={<Navigate to={token ? "/comments" : "/signin"} />}
-						/>
+							element={<Navigate to={token ? "/comment" : "/signin"} />}
+						/> */}
 						<Route
 							path='/signup'
 							element={<SignUp />}
@@ -29,7 +29,7 @@ function App() {
 							element={<SignIn />}
 						/>
 						<Route
-							path='/comments'
+							path='/comment'
 							element={token ? <Comments /> : <Navigate to='/signin' />}
 						/>
 						<Route

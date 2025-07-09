@@ -15,7 +15,7 @@ export default function SignUp() {
 			credentials: "include", // so cookie gets set
 			body: JSON.stringify(form),
 		})
-		if (res.ok) nav("/comments")
+		if (res.ok) nav("/signin")
 		else alert("Signup failed")
 	}
 
