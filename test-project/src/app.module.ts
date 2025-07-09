@@ -7,9 +7,14 @@ import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
 import { CommentsModule } from './comments/comments.module';
 import { NotificationModule } from './notification/notification.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', '..', 'frontend', 'dist'),
+      exclude: ['/auth*', '/comments*', '/notification*'],
+    }),
     ConfigModule.forRoot(),
     TypeOrmModule.forRootAsync({
       imports:[ConfigModule],
@@ -19,7 +24,7 @@ import { NotificationModule } from './notification/notification.module';
         url: configService.get<string>("DB_URL"),
         entities: [join(process.cwd(), 'dist/**/*.entity.{ts,js}')],
         synchronize: true
-      })
+      }),
     }),
     AuthModule,
     CommentsModule,
