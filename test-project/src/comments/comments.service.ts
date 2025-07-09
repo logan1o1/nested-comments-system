@@ -3,8 +3,10 @@ import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Comment } from './entities/comment.entity';
-import type { TreeRepository } from 'typeorm';
+import type { Repository, TreeRepository } from 'typeorm';
 import type { UUID } from 'crypto';
+import { CreateNotificationDto } from '../notification/dto/create-notification.dto';
+import { Notification } from '../notification/entities/notification.entity';
 
 type UpdateResult =
   | { success: true; comment: Comment }
@@ -14,7 +16,10 @@ type UpdateResult =
 export class CommentsService {
   constructor(
     @InjectRepository(Comment)
-    private readonly commentRepository: TreeRepository<Comment>
+    private readonly commentRepository: TreeRepository<Comment>,
+
+    @InjectRepository(Notification)
+    private readonly notifRepo: Repository<Notification>
   ) {}
   async create(createCommentDto: CreateCommentDto) {
     const comment = this.commentRepository.create({
@@ -22,13 +27,31 @@ export class CommentsService {
       text: createCommentDto.text
     });
 
+    let parentUserId: UUID | null = null;
+
     if (createCommentDto.parentId) {
       const parent = await this.commentRepository.findOne({where: {id: createCommentDto.parentId} })
       if (!parent) throw new Error('No parent comments exist');
       comment.parent = parent;
+      parentUserId = parent.userid;
     }
 
-    return await this.commentRepository.save(comment);
+    const savedComment = await this.commentRepository.save(comment);
+
+    if (createCommentDto.parentId) {
+      const notifDto: CreateNotificationDto = {
+        userId: parentUserId!,
+        commentId: savedComment.id,
+      }
+
+      const notification = this.notifRepo.create({
+        user: {id: notifDto.userId},
+        comment: {id: notifDto.commentId},
+      });
+      await this.notifRepo.save(notification);
+    }
+
+    return savedComment;
   }
 
   async findTrees() {

@@ -69,8 +69,8 @@ export class AuthController {
   }
 
   @Get('find/:id')
-  async findOneBy(@Param('id') id: UUID, @Res() res: Response) {
-    const user = await this.authService.findOneBy(id);
+  async findOne(@Param('id') id: UUID, @Res() res: Response) {
+    const user = await this.authService.findOne(id);
     if (!user)
       return res.status(HttpStatus.NOT_FOUND).send({ error: 'User not found' });
     return res.status(HttpStatus.OK).send(user);

@@ -43,9 +43,14 @@ export class AuthService {
     return user;
   }
 
-  async findOneBy(id: UUID) {
-    return await this.authRepository.findOneBy( { id } );
+  async findOne(id: `${string}-${string}-${string}-${string}-${string}`) {
+    return await this.authRepository
+    .createQueryBuilder('auth')
+    .where('auth.id = :id', { id: id })
+    .select(['auth.id', 'auth.username'])  
+    .getOne();
   }
+
   findAll() {
     return `This action returns all auth`;
   }

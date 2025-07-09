@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 function timeAgo(dateString) {
   const date = new Date(dateString);
@@ -24,6 +24,24 @@ export default function CommentTree({
   const [replyText, setReplyText] = useState('')
   const [editing,  setEditing]  = useState(false)
   const [editText, setEditText] = useState(node.text)
+  const [username, setUsername] = useState('Anonymous');
+
+  useEffect(() => {
+  if (!node.userid) return;
+
+  (async () => {
+    try {
+      const res = await fetch(`http://localhost:3500/auth/find/${node.userid}`, {
+        credentials: 'include'
+      });
+      // if (!res.ok) throw new Error();
+      const data = await res.json();
+      setUsername(data.username);
+    } catch {
+      setUsername('Anonymous');
+    }
+  })();
+}, [node.userid]);
 
   const submitReply = () => {
     postComment(replyText, node.id)
@@ -42,7 +60,7 @@ export default function CommentTree({
       <div className="comment-body">
         <div className="comment-header">
           <strong>
-            {node.user?.username ?? 'Anonymous'}
+            {node.userid ? username : 'Anonymous'}
           </strong> • {node.createdAt ? timeAgo(node.createdAt) : 'just now'}
         </div>
 
