@@ -52,15 +52,15 @@ export class NotificationService {
       .execute();
   }
 
-  create(createNotificationDto: CreateNotificationDto) {
-    return 'This action adds a new notification';
-  }
+  // create(createNotificationDto: CreateNotificationDto) {
+  //   return 'This action adds a new notification';
+  // }
 
-  findOne(id: number) {
-    return `This action returns a #${id} notification`;
-  }
+  // findOne(id: number) {
+  //   return `This action returns a #${id} notification`;
+  // }
 
-  remove(id: number) {
-    return `This action removes a #${id} notification`;
-  }
+  // remove(id: number) {
+  //   return `This action removes a #${id} notification`;
+  // }
 }

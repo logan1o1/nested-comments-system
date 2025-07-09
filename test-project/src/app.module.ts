@@ -11,10 +11,6 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
   imports: [
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', '..', 'frontend', 'dist'),
-      exclude: ['/auth*', '/comments*', '/notification*'],
-    }),
     ConfigModule.forRoot(),
     TypeOrmModule.forRootAsync({
       imports:[ConfigModule],
@@ -29,6 +25,14 @@ import { ServeStaticModule } from '@nestjs/serve-static';
     AuthModule,
     CommentsModule,
     NotificationModule,
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', '..', 'frontend', 'dist'),
+      exclude: [
+        '/auth*',
+        '/comments*',
+        '/notification*',
+      ],
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -86,18 +86,18 @@ export class NotificationController {
     return res.status(HttpStatus.NO_CONTENT).send();
   }
 
-  @Post()
-  create(@Body() createNotificationDto: CreateNotificationDto) {
-    return this.notificationService.create(createNotificationDto);
-  }
+  // @Post()
+  // create(@Body() createNotificationDto: CreateNotificationDto) {
+  //   return this.notificationService.create(createNotificationDto);
+  // }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.notificationService.findOne(+id);
-  }
+  // @Get(':id')
+  // findOne(@Param('id') id: string) {
+  //   return this.notificationService.findOne(+id);
+  // }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.notificationService.remove(+id);
-  }
+  // @Delete(':id')
+  // remove(@Param('id') id: string) {
+  //   return this.notificationService.remove(+id);
+  // }
 }

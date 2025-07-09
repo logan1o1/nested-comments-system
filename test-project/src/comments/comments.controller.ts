@@ -111,8 +111,8 @@ export class CommentsController {
     return res.status(HttpStatus.OK).send(removed)
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.commentsService.findOne(+id);
-  }
+  // @Get(':id')
+  // findOne(@Param('id') id: string) {
+  //   return this.commentsService.findOne(+id);
+  // }
 }

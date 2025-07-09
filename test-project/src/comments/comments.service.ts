@@ -99,7 +99,7 @@ export class CommentsService {
     return {success: true, comment: removed};
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} comment`;
-  }
+  // findOne(id: number) {
+  //   return `This action returns a #${id} comment`;
+  // }
 }

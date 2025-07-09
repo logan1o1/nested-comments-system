@@ -16,10 +16,10 @@ function App() {
 			<BrowserRouter>
 				<Layout>
 					<Routes>
-						{/* <Route
+						<Route
 							path='/'
 							element={<Navigate to={token ? "/comments" : "/signin"} />}
-						/> */}
+						/>
 						<Route
 							path='/signup'
 							element={<SignUp />}

@@ -51,16 +51,16 @@ export class AuthService {
     .getOne();
   }
 
-  findAll() {
-    return `This action returns all auth`;
-  }
+  // findAll() {
+  //   return `This action returns all auth`;
+  // }
 
 
-  update(id: number, updateAuthDto: UpdateAuthDto) {
-    return `This action updates a #${id} auth`;
-  }
+  // update(id: number, updateAuthDto: UpdateAuthDto) {
+  //   return `This action updates a #${id} auth`;
+  // }
 
-  remove(id: number) {
-    return `This action removes a #${id} auth`;
-  }
+  // remove(id: number) {
+  //   return `This action removes a #${id} auth`;
+  // }
 }
