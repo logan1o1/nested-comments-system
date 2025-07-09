@@ -1,11 +1,28 @@
-
 .layout {
   position: relative;
   min-height: 100vh;
 }
 
-.logout-btn {
+.top-bar {
   position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 9rem;
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+.nav-btn:hover {
+  color: #4a90e2;
+}
+
+.logout-btn {
+  /* position: absolute; */
   top: 1rem;
   right: 1rem;
   background: none;
@@ -21,4 +38,27 @@
 
 .content {
   padding-top: 3rem; 
+}
+
+.top-bar {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-btn,
+.logout-btn {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.nav-btn {
+  padding: 0.25rem 0.5rem;
+}
+.logout-btn {
+  padding: 0.25rem 0.5rem;
 }
